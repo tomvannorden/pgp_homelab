@@ -1,0 +1,14 @@
+---
+
+- name: Deploy vagrant homelab
+  hosts: localhost
+  connection: local
+  roles:
+    - deploy_vagrant
+
+- name: test conn
+  hosts: homelab
+  tasks:
+    - import_role:
+        name: deploy_vagrant
+        tasks_from: test_conn
