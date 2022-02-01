@@ -9,3 +9,7 @@
   known_hosts:
     name: "{{ groups['homelab'] }}"
     state: absent
+
+- name: Pause for 2 minutes to let ssh come up
+  pause:
+    minutes: 2
