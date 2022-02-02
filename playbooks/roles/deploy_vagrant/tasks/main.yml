@@ -7,7 +7,7 @@
 
 - name: Remove the key of any previous vagrant machines with the same ip from the local known_hosts file
   known_hosts:
-    name: "{{ groups[homelab] }}"
+    name: "{{ groups['homelab'] }}"
     state: absent
 
 - name: Pause for 2 minutes to let ssh come up

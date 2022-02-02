@@ -1,3 +1,35 @@
 ---
 
 - import_tasks: install_java.yml
+
+- name: Install ca-certificates # Workaround for installing jenkins on ubuntu 20.04, the jenkins repo is giving attitude
+  become: true
+  apt:
+    name: ca-certificates
+    state: latest
+    update_cache: true
+
+- name: Import jenkins apt key
+  become: true
+  apt_key:
+    url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
+    state: present
+
+- name: Configure jenkins repo
+  become: true
+  apt_repository:
+    filename: "Jenkins"
+    repo: "deb https://pkg.jenkins.io/debian-stable binary/"
+    state: present
+    update_cache: true
+
+- name: Install jenkins package
+  become: true
+  apt:
+    name: jenkins
+    state: latest
+    update_cache: true
+  register: changed_jenkins
+
+- debug:
+    var: changed_jenkins
