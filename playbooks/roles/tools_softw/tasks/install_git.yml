@@ -1,0 +1,15 @@
+---
+
+- name: Install git
+  become: true
+  apt:
+    name: git
+    state: latest
+    update_cache: true
+  register: changed_git
+
+- name: Check status git installation
+  command: git --version
+  register: status_git
+  failed_when: status_git.rc != 0
+  changed_when: changed_git.changed == true

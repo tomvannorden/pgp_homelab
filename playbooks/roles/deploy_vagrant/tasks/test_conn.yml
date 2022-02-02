@@ -3,7 +3,7 @@
 - name: Test connection with the newly deployed vagrant machine
   command: echo "Hello there, you've successfully deployed a new vagrant machine."
   register: test_result
-  failed_when: "{{ test_result.rc != 0 }}"
+  failed_when: test_result.rc != 0
 
 - debug:
-    var: test_result
+    var: test_result.stdout
