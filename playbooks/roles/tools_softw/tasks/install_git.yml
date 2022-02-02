@@ -13,3 +13,7 @@
   register: status_git
   failed_when: status_git.rc != 0
   changed_when: changed_git.changed == true
+
+- debug:
+    msg: "Git got updated to {{ status_git.stdout }}"
+  when: changed_git.changed == true

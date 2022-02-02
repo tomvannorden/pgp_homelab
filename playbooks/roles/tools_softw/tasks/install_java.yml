@@ -1,0 +1,19 @@
+---
+
+- name: Install java package
+  become: true
+  apt:
+    name: "{{ java_packages }}"
+    state: latest
+    update_cache: true
+  register: changed_java
+
+- name: Check status java installation
+  command: java --version
+  register: status_java
+  failed_when: status_java.rc != 0
+  changed_when: changed_java.changed == true
+
+- debug:
+    msg: "Java got updated to {{ status_java.stdout_lines[1] }}"
+  when: changed_java.changed == true
